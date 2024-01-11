@@ -8,14 +8,18 @@ In order to run this code:
 
 __lua__
 function _init()
-  counter = 0
+  #include card.lua
 end
 
 function _update()
-  counter = counter + 1
 end 
 
 function _draw()
   cls()
-  print(counter, 7, 7)
-end 
+  -- bg
+  rectfill(0,0,127,127,1)
+  -- using this to see where deck should sit
+  rectfill(0,0,14,14,7)
+  -- card
+  card:draw(14,33)
+end
