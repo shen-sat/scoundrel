@@ -8,7 +8,12 @@ In order to run this code:
 
 __lua__
 function _init()
-  #include card.lua
+  #include create_card.lua
+  #include create_deck.lua
+
+  deck_x = 14
+  deck_y = -16
+  deck = create_deck(deck_x, deck_y)
 end
 
 function _update()
@@ -18,8 +23,6 @@ function _draw()
   cls()
   -- bg
   rectfill(0,0,127,127,1)
-  -- using this to see where deck should sit
-  rectfill(0,0,14,14,7)
-  -- card
-  card:draw(14,33)
+  deck:draw()
+  
 end
