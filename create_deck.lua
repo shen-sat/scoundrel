@@ -1,23 +1,36 @@
-function create_deck(x,y)
+function create_deck(x,y,context)
   local deck = {
+  	context = context,
   	x = x,
   	y = y,
   	cards = {},
-  	facedown = true,
-  	draw = function(self)
-  		x1 = self.x + 21
-  		y1 = self.y + 31
+    state = 'idle',
+  	update = function(self)
+  		if self.state == 'deal' then 
+  			local move_speed = context.move_speed
 
-  		rectfill(self.x,self.y,x1,y1,14)
-  		pset(self.x,self.y,1)
-  		pset(self.x,y1,1)
-  		pset(x1,self.y,1)
-  		pset(x1,y1,1)
-
-  		if self.facedown then
-  		  rectfill(self.x + 2, self.y + 2, x1 - 2, y1 - 2, 1)
+  			if not self.context:is_full() then
+  			  local dealt_card = self.cards[1]
+  			  if dealt_card.y + move_speed < self.context.y then
+  			    dealt_card.y += move_speed
+  			  else
+  			    dealt_card.y = self.context.y
+  			    del(self.cards, dealt_card)
+  			    add(self.context.cards, dealt_card)
+  			    if self.context:is_full() then self:set_state('idle') end
+  			  end
+  			end
   		end
-  	end
+  		
+  	end,
+  	draw = function(self)
+  		for card in all(self.cards) do
+  			card:draw()
+  		end
+  	end,
+    set_state = function(self,new_state)
+      self.state = new_state
+    end
   }
 
   local suits = {'spade','club','diamond','heart'}
@@ -26,7 +39,7 @@ function create_deck(x,y)
 
   for i=1, 13  do
   	for suit in all(suits) do
-  		local card = create_card(deck.x,deck.y,suit,i,context)
+  		local card = create_card(deck.x,deck.y,suit,i,deck)
   		add(unshuffled_cards, card)
   	end
   end

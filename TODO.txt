@@ -1,10 +1,12 @@
 
 Actions:
 deal deck itself
+- deal cards
+- arrange context
+- flip cards
+- make cursor appear
 deal hero
 deal torch
-deal cards
-- adjust to place 3 cards, wherever 4th card is
 dialogue pop up
 cursor
 - move
@@ -26,8 +28,3 @@ cursor
 
 Game over notes:
 Last card will be a treasure chest, with cursor. When player selects, it will open and jewel will rise out
-
-Im coding a card game. A pack of 52 cards is initialised. Then 4 cards are dealt along a top row. If the card is a clubs/spades, the card is a monster. hearts is a potion. diamonds is a sword.
-The bottom row contains 4 items: health score, sword durability score, a sword card (if equipped) and a torch.
-Each turn the player can select a card from the top row and/or bottom row to perform an action.
-eg player selects a potion in top row = health is added to the health score and option is removed from top row. Or player selects a sword in top row = sword is placed in bottom row
