@@ -1,5 +1,6 @@
-function create_card(x,y,suit,value)
+function create_card(x,y,suit,value, context)
   local card = {
+    context = context,
     suit = suit,
     value = value,
     x = x,
