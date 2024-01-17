@@ -11,6 +11,7 @@ function _init()
   #include create_card.lua
   #include create_deck.lua
   #include create_context.lua
+  #include create_shape.lua
 
   first_card_x = 14
   first_card_y = 34
@@ -21,32 +22,24 @@ function _init()
   deck_x = first_card_x
   deck_y = -16
   deck = create_deck(deck_x, deck_y, context)
-  
+
   foo = nil
   counter = 0
+  shape = create_shape()
 end
 
 function _update()
   if btnp(⬅️) then
-    deck.deal_phase = true
-    context.arrange_phase = true
+    shape.animation = shape.animations.flip
   end
   context:update()
   deck:update()
-  
+  counter += 1
 end 
 
 function _draw()
   cls()
   -- bg
   rectfill(0,0,127,127,1)
-  deck:draw()
-  context:draw()
-  print(foo, 7)
-  print(#deck.cards, 7)
-  print(#context.cards, 7)
-  for c in all(context.cards) do
-    print(c.x)
-  end
-  print(counter)
+  shape:draw()
 end
