@@ -23,18 +23,19 @@ function _init()
   deck_y = -16
   deck = create_deck(deck_x, deck_y, context)
 
-  foo = nil
-  counter = 0
+  debug = ''
+  time = 0
   shape = create_shape()
 end
 
 function _update()
   if btnp(⬅️) then
-    shape.animation = shape.animations.flip
+    shape:set_state('flip')
   end
+  shape:update()
   context:update()
   deck:update()
-  counter += 1
+  time += 1
 end 
 
 function _draw()
