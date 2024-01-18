@@ -2,9 +2,12 @@ function create_shape()
 	local shape = {
 		animation = nil,
 		draw = function(self)
-			if self.animation then run_animation(self,counter) end
-			
-			if not self.animation then rectfill(0,0,1,1,7) end
+
+			if self.animation then
+				run_animation(self,counter)
+			else
+				rectfill(0,0,1,1,7)
+			end
 		end,
 		animations = {
 			flip = {
@@ -36,16 +39,21 @@ function run_animation(caller,current_counter)
 	if not animation.start_counter then
 		animation.start_counter = current_counter
 	end
-	local index = flr((current_counter - animation.start_counter)/animation.speed)
+	local time_elapsed = current_counter - animation.start_counter
+	-- using flr makes sure we alwways return an integer at regular intervals
+	-- Eg animation.speed of 3 will return 0,0,0,1,1,1,2,2,2...
+	local index = flr(time_elapsed/animation.speed)
 
 	if animation.loop then
+		-- if the animation loops, then loop using modulo
 		animation:frames()[(index % #animation:frames()) + 1]()
 	else
-		if index + 1 > #animation:frames() then
+		-- Note an animation_size of eg 30, translates to an index (caluclated above) being from 0 -> 29 inclusive
+		local animation_size = #animation:frames() * animation.speed
+		if (animation_size - 1) <= (current_counter - animation.start_counter) then
 			animation.start_counter = nil
 			caller.animation = nil
-		else
-			animation:frames()[index + 1]()
 		end	
+		animation:frames()[index + 1]()
 	end
 end
