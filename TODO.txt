@@ -30,3 +30,22 @@ cursor
 
 Game over notes:
 Last card will be a treasure chest, with cursor. When player selects, it will open and jewel will rise out
+
+Flip animation:
+start card x, y = 92,34
+frame 1:
+- rectfill white
+	- x,y = 96,31
+	- x1,y1 = 109,62
+- rectfill black
+	- x,y = 97,33
+	- x1,y1 = 108,60
+frame 2:
+- rectfill white
+	- x,y = 102,28
+	- x1,y1 = 103,59
+frame 3:
+- rectfill white
+	- x,y = frame 1 x,y
+	- x1,y1 = frame 1 x1,y1
+	
