@@ -47,7 +47,7 @@ function start_game()
   deck = create_deck(deck_x, deck_y, context)
   
   foo = nil
-  counter = 0
+  current_time = 0
   game.update = game_update
 end
 
@@ -56,9 +56,16 @@ function game_update()
     deck:set_state('deal')
     context:set_state('deal')
     game.update = deal_update
+  elseif btnp(4) then
+    local card = context.cards[1]
+    card:set_state('flip')
   end
+
+
+
   context:update()
   deck:update()
+  current_time += 1
 end
 
 function deal_update()
@@ -66,4 +73,5 @@ function deal_update()
   context:update()
 
   if context:is_complete() then game.update = game_update end
+  current_time += 1
 end

@@ -4,8 +4,12 @@ function create_context(x,y,move_speed)
     state = idle,
     y = y,
     x_points = {92,66,40,14},
-    cards = {create_card(66,y,'foo','bar')},
+    cards = {create_card(40,y,'foo','bar')},
     update = function(self)
+      for card in all(self.cards) do
+        card:update()
+      end
+
       if self:is_complete() then self:set_state('idle') end
       
       if self.state == 'deal' then self:deal() end
@@ -27,7 +31,6 @@ function create_context(x,y,move_speed)
       return (result and self:is_full())
     end,
     deal = function(self)
-      counter += 1
       for i=1, #self.cards do
         local card_x = self.cards[i].x + flr(self.move_speed)
         if card_x > self.x_points[i] then

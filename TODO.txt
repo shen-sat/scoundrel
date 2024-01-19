@@ -6,6 +6,7 @@ deal deck itself
 - flip cards
 	- copy over to card object from shape object
 	- then refactor - the animation logic will be shared, most likely
+	- NOTE: you can't pass objects to another update fn, cos then you have to duplicate `current_time += 1` everywhere. Better to create an object for controls and disable it when running an animation. (Or it could take in all other objects and only run when all other objects are in a certain state)
 - make cursor appear
 deal hero
 deal torch
@@ -48,4 +49,12 @@ frame 3:
 - rectfill white
 	- x,y = frame 1 x,y
 	- x1,y1 = frame 1 x1,y1
+
+	frame_1:
+	- rectfill white
+		- x,y = parent_x + (96-92),31
+		- x1,y1 = 109,62
+	- rectfill black
+		- x,y = 97,33
+		- x1,y1 = 108,60
 	
