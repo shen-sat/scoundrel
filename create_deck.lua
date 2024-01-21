@@ -11,10 +11,10 @@ function create_deck(x,y,context)
 
   			if not self.context:is_full() then
   			  local dealt_card = self.cards[1]
-  			  if dealt_card.y + move_speed < self.context.y_points[1] then
+  			  if dealt_card.y + move_speed < self.context.top_row.y then
   			    dealt_card.y += move_speed
   			  else
-  			    dealt_card.y = self.context.y_points[1]
+  			    dealt_card.y = self.context.top_row.y
   			    del(self.cards, dealt_card)
   			    add(self.context.cards, dealt_card)
   			    if self.context:is_full() then self:set_state('idle') end

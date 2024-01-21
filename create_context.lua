@@ -2,8 +2,14 @@ function create_context(x,y,move_speed)
   local context = {
     move_speed = move_speed,
     state = 'idle',
-    y_points = {y, y + (75 - y)},
-    x_points = {92,66,40,x},
+    top_row = {
+      x_points = { x + (92 - x),x + (66 - x),x + (40 - x),x },
+      y = y
+    },
+    bottom_row = {
+      x_points = {x + (27 - x), x + (53 - x), x + (79 - x)},
+      y = y + (75 - y)
+    },
     cards = {create_card(40,y,'foo','bar')},
     update = function(self)
       for card in all(self.cards) do
@@ -30,7 +36,8 @@ function create_context(x,y,move_speed)
       -- check if cards are all in position
       for i=1, #self.cards do
         local card = self.cards[i]
-        if not (card.x == self.x_points[i]) then result = false end
+
+        if not (card.x == self.top_row.x_points[i]) then result = false end
         if card.facedown then result = false end
       end
 
@@ -40,8 +47,8 @@ function create_context(x,y,move_speed)
       -- arrange cards positions
       for i=1, #self.cards do
         local card_x = self.cards[i].x + flr(self.move_speed)
-        if card_x > self.x_points[i] then
-          self.cards[i].x = self.x_points[i]
+        if card_x > self.top_row.x_points[i] then
+          self.cards[i].x = self.top_row.x_points[i]
         else
           self.cards[i].x += flr(self.move_speed)
         end
@@ -49,7 +56,7 @@ function create_context(x,y,move_speed)
       -- arrange cards faceup
       for i=1, #self.cards do
         local card = self.cards[i]
-        if card.x >= self.x_points[i] and card.facedown then card:set_state('flip') end
+        if card.x >= self.top_row.x_points[i] and card.facedown then card:set_state('flip') end
       end
     end,
     set_state = function(self,new_state)
