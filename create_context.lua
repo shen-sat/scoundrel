@@ -1,9 +1,9 @@
 function create_context(x,y,move_speed)
   local context = {
     move_speed = move_speed,
-    state = idle,
-    y = y,
-    x_points = {92,66,40,14},
+    state = 'idle',
+    y_points = {y, y + (75 - y)},
+    x_points = {92,66,40,x},
     cards = {create_card(40,y,'foo','bar')},
     update = function(self)
       for card in all(self.cards) do

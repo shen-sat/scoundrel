@@ -6,15 +6,15 @@ function create_deck(x,y,context)
   	cards = {},
     state = 'idle',
   	update = function(self)
-  		if self.state == 'deal' then 
+  		if self.state == 'deal' then
   			local move_speed = context.move_speed
 
   			if not self.context:is_full() then
   			  local dealt_card = self.cards[1]
-  			  if dealt_card.y + move_speed < self.context.y then
+  			  if dealt_card.y + move_speed < self.context.y_points[1] then
   			    dealt_card.y += move_speed
   			  else
-  			    dealt_card.y = self.context.y
+  			    dealt_card.y = self.context.y_points[1]
   			    del(self.cards, dealt_card)
   			    add(self.context.cards, dealt_card)
   			    if self.context:is_full() then self:set_state('idle') end
