@@ -21,6 +21,7 @@ function _draw()
   -- bg
   rectfill(0,0,127,127,1)
   -- other objects
+  print(gamepad_debug,90,90,7)
   deck:draw()
   context:draw()
 end
@@ -49,6 +50,7 @@ function start_game()
 end
 
 function game_update()
+  gamepad_debug = 'disabled'
   gamepad:update()
   context:update()
   deck:update()

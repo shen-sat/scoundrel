@@ -27,13 +27,17 @@ function create_context(x,y,move_speed)
     end,
     is_complete = function(self)
       local result = true
+      -- check if cards are all in position
       for i=1, #self.cards do
-        if not (self.cards[i].x == self.x_points[i]) then result = false end
+        local card = self.cards[i]
+        if not (card.x == self.x_points[i]) then result = false end
+        if card.facedown then result = false end
       end
 
       return (result and self:is_full())
     end,
     deal = function(self)
+      -- arrange cards positions
       for i=1, #self.cards do
         local card_x = self.cards[i].x + flr(self.move_speed)
         if card_x > self.x_points[i] then
@@ -41,6 +45,11 @@ function create_context(x,y,move_speed)
         else
           self.cards[i].x += flr(self.move_speed)
         end
+      end
+      -- arrange cards faceup
+      for i=1, #self.cards do
+        local card = self.cards[i]
+        if card.x >= self.x_points[i] and card.facedown then card:set_state('flip') end
       end
     end,
     set_state = function(self,new_state)
