@@ -9,12 +9,11 @@ function create_card(x,y,suit,value)
     frame_index = 1,
     state_change_time = 0,
     update = function(self)
-      local current_animation = self:animations()[self.state]
-      local frame_index = get_frame_index(current_animation,self.state_change_time,current_time)
+      local frame_index = get_frame_index(self,current_time)
       
       if frame_index == self.frame_index then return end
 
-      if frame_index > #current_animation:frames() then
+      if frame_index > #self:animations()[self.state]:frames() then
         if self.state == 'flip' then self.facedown = (not self.facedown) end
         
         self:set_state('idle')
@@ -96,7 +95,9 @@ function create_card(x,y,suit,value)
   return card
 end
 
-function get_frame_index(animation,animation_start_time,current_time)
+function get_frame_index(caller,current_time)
+  local animation = caller:animations()[caller.state]
+  local animation_start_time = caller.state_change_time
 
   local time_elapsed = current_time - animation_start_time
   -- using flr makes sure we alwways return an integer at regular intervals

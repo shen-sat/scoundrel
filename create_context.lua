@@ -10,7 +10,10 @@ function create_context(x,y,move_speed)
         card:update()
       end
 
-      if self:is_complete() then self:set_state('idle') end
+      if self:is_complete() then 
+        self:set_state('idle')
+        gamepad.disabled = false
+      end
       
       if self.state == 'deal' then self:deal() end
     end,

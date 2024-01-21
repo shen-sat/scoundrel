@@ -20,21 +20,16 @@ function _draw()
   cls()
   -- bg
   rectfill(0,0,127,127,1)
+  -- other objects
   deck:draw()
   context:draw()
-  print(foo, 7)
-  print(#deck.cards, 7)
-  print(#context.cards, 7)
-  for c in all(context.cards) do
-    print(c.x)
-  end
-  print(counter)
 end
 
 function start_game()
   #include create_card.lua
   #include create_deck.lua
   #include create_context.lua
+  #include create_gamepad.lua
   
   first_card_x = 14
   first_card_y = 34
@@ -45,33 +40,21 @@ function start_game()
   deck_x = first_card_x
   deck_y = -16
   deck = create_deck(deck_x, deck_y, context)
+
+  gamepad = create_gamepad(deck, context)
+  set_gamepad(context, gamepad)
   
-  foo = nil
   current_time = 0
   game.update = game_update
 end
 
 function game_update()
-  if btnp(⬅️) then
-    deck:set_state('deal')
-    context:set_state('deal')
-    game.update = deal_update
-  elseif btnp(4) then
-    local card = context.cards[1]
-    card:set_state('flip')
-  end
-
-
-
+  gamepad:update()
   context:update()
   deck:update()
   current_time += 1
 end
 
-function deal_update()
-  deck:update()
-  context:update()
-
-  if context:is_complete() then game.update = game_update end
-  current_time += 1
+function set_gamepad(object,gamepad)
+  object.gamepad = gamepad
 end

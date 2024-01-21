@@ -4,7 +4,7 @@ deal deck itself
 - deal cards DONE
 - arrange context DONE
 - flip cards
-	- copy over to card object from shape object
+	- copy over to card object from shape object DONE
 	- then refactor - the animation logic will be shared, most likely
 	- NOTE: you can't pass objects to another update fn, cos then you have to duplicate `current_time += 1` everywhere. Better to create an object for controls and disable it when running an animation. (Or it could take in all other objects and only run when all other objects are in a certain state)
 - make cursor appear
