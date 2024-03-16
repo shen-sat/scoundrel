@@ -10,23 +10,23 @@ function create_context(x,y,move_speed)
       x_points = {x + (27 - x), x + (53 - x), x + (79 - x)},
       y = y + (75 - y)
     },
-    top_cards = {create_card(40,y,'foo','bar')},
-    update = function(self)
-      for card in all(self.top_cards) do
-        card:update()
-      end
+    hero_slot = function(self)
+      slot = {
+        x = self.bottom_row.x_points[2],
+        y = self.bottom_row.y,
+      }
 
+      return slot
+    end,
+    top_cards = {},
+    bottom_cards = {},
+    update = function(self)
       if self:is_complete() then 
         self:set_state('idle')
         gamepad.disabled = false
       end
       
       if self.state == 'deal' then self:deal() end
-    end,
-    draw = function(self)
-      for card in all(self.top_cards) do
-        card:draw()
-      end
     end,
     is_full = function(self)
       return #self.top_cards > 3

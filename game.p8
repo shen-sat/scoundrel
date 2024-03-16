@@ -22,8 +22,9 @@ function _draw()
   rectfill(0,0,127,127,1)
   -- other objects
   print(gamepad_debug,90,90,7)
-  deck:draw()
-  context:draw()
+  for card in all(all_cards) do
+    card:draw()
+  end
 end
 
 function start_game()
@@ -32,6 +33,7 @@ function start_game()
   #include create_deck.lua
   #include create_context.lua
   #include create_gamepad.lua
+  #include create_dealer.lua
   #include shared.lua
   
   first_card_x = 14
@@ -40,11 +42,23 @@ function start_game()
 
   context = create_context(first_card_x, first_card_y, move_speed)
 
+  all_cards = {}
+
   deck_x = first_card_x
   deck_y = -16
-  deck = create_deck(deck_x, deck_y, context)
+  deck = create_deck(deck_x, deck_y)
+  for card in all(deck) do
+    add(all_cards, card)
+  end
 
-  gamepad = create_gamepad(deck, context)
+  hero_x = context:hero_slot().x
+  hero_y = 129
+  hero = create_card(hero_x,hero_y,'hero',20)
+  add(all_cards, hero)
+
+  dealer = create_dealer(deck,hero,context)
+
+  gamepad = create_gamepad(deck, context, dealer)
   set_gamepad(context, gamepad)
   
   current_time = 0
@@ -55,7 +69,10 @@ function game_update()
   gamepad_debug = 'disabled'
   gamepad:update()
   context:update()
-  deck:update()
+  dealer:update()
+  for card in all(all_cards) do
+    card:update()
+  end
   current_time += 1
 end
 

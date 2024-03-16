@@ -1,4 +1,4 @@
-function create_gamepad(deck,context)
+function create_gamepad(deck,context,dealer)
   local gamepad = {
   	context = context,
     deck = deck,
@@ -8,12 +8,14 @@ function create_gamepad(deck,context)
       gamepad_debug = 'enabled'
 
       if btnp(⬅️) then
-        deck:set_state('deal')
+        dealer:set_state('deal_deck')
         context:set_state('deal')
         self.disabled = true
       elseif btnp(4) then
         local card = context.top_cards[1]
         card:set_state('flip')
+      elseif btnp(5) then
+        dealer:set_state('deal_hero')
       end
   	end
   }
