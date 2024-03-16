@@ -16,7 +16,7 @@ function create_deck(x,y,context)
   			  else
   			    dealt_card.y = self.context.top_row.y
   			    del(self.cards, dealt_card)
-  			    add(self.context.cards, dealt_card)
+  			    add(self.context.top_cards, dealt_card)
   			    if self.context:is_full() then self:set_state('idle') end
   			  end
   			end

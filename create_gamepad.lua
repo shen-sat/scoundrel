@@ -12,7 +12,7 @@ function create_gamepad(deck,context)
         context:set_state('deal')
         self.disabled = true
       elseif btnp(4) then
-        local card = context.cards[1]
+        local card = context.top_cards[1]
         card:set_state('flip')
       end
   	end
