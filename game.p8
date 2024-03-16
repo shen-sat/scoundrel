@@ -27,10 +27,12 @@ function _draw()
 end
 
 function start_game()
-  #include create_card.lua
+  #include card/create_card.lua
+  #include card/card_animations.lua
   #include create_deck.lua
   #include create_context.lua
   #include create_gamepad.lua
+  #include shared.lua
   
   first_card_x = 14
   first_card_y = 34

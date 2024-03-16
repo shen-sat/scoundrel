@@ -1,9 +1,5 @@
 
 Actions:
-refactor card animation:
-- make new dir for card and put animations in their own file
-- extract any common animation stuff to shared dir
-
 deal hero
 
 deal torch
