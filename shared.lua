@@ -29,3 +29,13 @@ function get_frame_index(caller,current_time)
     return i + 1
   end
 end
+
+function is_in_table(table, item)
+  for value in all(table) do
+    if value == item then
+      return true
+    end
+  end
+
+  return false
+end

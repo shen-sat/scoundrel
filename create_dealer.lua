@@ -23,17 +23,14 @@ function create_dealer(deck,hero,torch,context)
         end
         -- arrange cards already present in context
         for i=1, #self.context.top_cards do
-          local card_x = self.context.top_cards[i].x + self.context.move_speed
-          if card_x > self.context.top_row.x_points[i] then
-            self.context.top_cards[i].x = self.context.top_row.x_points[i]
-          else
-            self.context.top_cards[i].x += self.context.move_speed
-          end
-        end
-        -- arrange top_cards faceup
-        for i=1, #self.context.top_cards do
           local card = self.context.top_cards[i]
-          if card.x >= self.context.top_row.x_points[i] and card.facedown then card:set_state('flip') end
+          local card_x = card.x + self.context.move_speed
+          if card_x > self.context.top_row.x_points[i] then
+            card.x = self.context.top_row.x_points[i]
+            if card.facedown then card:set_state('flip') end
+          else
+            card.x += self.context.move_speed
+          end
         end
   		elseif self.state == 'deal_hero' then
         local card = self.hero
@@ -47,14 +44,14 @@ function create_dealer(deck,hero,torch,context)
   	end,
     deal_card = function(self, card, target_y)
       local card = card
-      local target_y = target_y
+      assert(not is_in_table(self.context.bottom_cards, card), "card:"..card.suit.." is already in context! " )
 
+      local target_y = target_y
       if card.y - move_speed > target_y then
         card.y -= move_speed
       else
         card.y = target_y
         card:set_state('flip')
-        card = nil
         add(self.context.bottom_cards, card)
         self:set_state('idle')
         self.gamepad.disabled = false
