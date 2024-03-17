@@ -56,7 +56,12 @@ function start_game()
   hero = create_card(hero_x,hero_y,'hero',20)
   add(all_cards, hero)
 
-  dealer = create_dealer(deck,hero,context)
+  torch_x = context:torch_slot().x
+  torch_y = 129
+  torch = create_card(torch_x,torch_y,'torch')
+  add(all_cards, torch)
+
+  dealer = create_dealer(deck,hero,torch,context)
 
   gamepad = create_gamepad(context, dealer)
   set_gamepad(context,gamepad)

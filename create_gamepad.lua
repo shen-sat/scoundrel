@@ -15,6 +15,9 @@ function create_gamepad(context,dealer)
       elseif btnp(5) then
         dealer:set_state('deal_hero')
         self.disabled = true
+      elseif btnp(3) then
+        dealer:set_state('deal_torch')
+        self.disabled = true
       end
   	end
   }

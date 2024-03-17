@@ -11,8 +11,16 @@ function create_context(x,y,move_speed)
       y = y + (75 - y)
     },
     hero_slot = function(self)
-      slot = {
+      local slot = {
         x = self.bottom_row.x_points[2],
+        y = self.bottom_row.y,
+      }
+
+      return slot
+    end,
+    torch_slot = function(self)
+      local slot = {
+        x = self.bottom_row.x_points[3],
         y = self.bottom_row.y,
       }
 

@@ -1,9 +1,10 @@
-function create_dealer(deck,hero,context)
+function create_dealer(deck,hero,torch,context)
   local dealer = {
   	context = context,
     state = 'idle',
     deck = deck,
     hero = hero,
+    torch = torch,
   	update = function(self)
       local move_speed = context.move_speed
 
@@ -20,21 +21,30 @@ function create_dealer(deck,hero,context)
           end
         end
   		elseif self.state == 'deal_hero' then
-        local hero_x = context:hero_slot().x
-        local hero_y_target = context:hero_slot().y
-        
-        if self.hero.y - move_speed > hero_y_target then
-          self.hero.y -= move_speed
-        else
-          self.hero.y = hero_y_target
-          self.hero:set_state('flip')
-          self.hero = nil
-          add(self.context.bottom_cards, hero)
-          self:set_state('idle')
-          self.gamepad.disabled = false
-        end
-  		end
+        local card = self.hero
+        local target_y = context:hero_slot().y
+        self:deal_card(card, target_y)
+      elseif self.state == 'deal_torch' then
+        local card = self.torch
+        local target_y = context:torch_slot().y
+        self:deal_card(card, target_y)
+      end
   	end,
+    deal_card = function(self, card, target_y)
+      local card = card
+      local target_y = target_y
+
+      if card.y - move_speed > target_y then
+        card.y -= move_speed
+      else
+        card.y = target_y
+        card:set_state('flip')
+        card = nil
+        add(self.context.bottom_cards, card)
+        self:set_state('idle')
+        self.gamepad.disabled = false
+      end
+    end,
     set_state = function(self,new_state)
       self.state = new_state
     end
