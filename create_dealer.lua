@@ -31,6 +31,7 @@ function create_dealer(deck,hero,context)
           self.hero = nil
           add(self.context.bottom_cards, hero)
           self:set_state('idle')
+          self.gamepad.disabled = false
         end
   		end
   	end,

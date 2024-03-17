@@ -23,10 +23,10 @@ function create_context(x,y,move_speed)
     update = function(self)
       if self:is_complete() then 
         self:set_state('idle')
-        gamepad.disabled = false
+        self.gamepad.disabled = false
       end
       
-      if self.state == 'deal' then self:deal() end
+      if self.state == 'arrange' then self:arrange() end
     end,
     is_full = function(self)
       return #self.top_cards > 3
@@ -43,7 +43,7 @@ function create_context(x,y,move_speed)
 
       return (result and self:is_full())
     end,
-    deal = function(self)
+    arrange = function(self)
       -- arrange top_cards positions
       for i=1, #self.top_cards do
         local card_x = self.top_cards[i].x + flr(self.move_speed)

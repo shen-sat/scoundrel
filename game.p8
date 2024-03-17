@@ -58,8 +58,9 @@ function start_game()
 
   dealer = create_dealer(deck,hero,context)
 
-  gamepad = create_gamepad(deck, context, dealer)
-  set_gamepad(context, gamepad)
+  gamepad = create_gamepad(context, dealer)
+  set_gamepad(context,gamepad)
+  set_gamepad(dealer,gamepad)
   
   current_time = 0
   game.update = game_update

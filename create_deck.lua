@@ -5,7 +5,7 @@ function create_deck(x,y)
 
   for i=1, 13  do
   	for suit in all(suits) do
-  		local card = create_card(x,y,suit,i,deck)
+  		local card = create_card(x,y,suit,i)
   		add(unshuffled_cards, card)
   	end
   end
