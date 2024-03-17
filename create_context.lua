@@ -51,22 +51,6 @@ function create_context(x,y,move_speed)
 
       return (result and self:is_full())
     end,
-    arrange = function(self)
-      -- arrange top_cards positions
-      for i=1, #self.top_cards do
-        local card_x = self.top_cards[i].x + flr(self.move_speed)
-        if card_x > self.top_row.x_points[i] then
-          self.top_cards[i].x = self.top_row.x_points[i]
-        else
-          self.top_cards[i].x += flr(self.move_speed)
-        end
-      end
-      -- arrange top_cards faceup
-      for i=1, #self.top_cards do
-        local card = self.top_cards[i]
-        if card.x >= self.top_row.x_points[i] and card.facedown then card:set_state('flip') end
-      end
-    end,
     set_state = function(self,new_state)
       self.state = new_state
     end
