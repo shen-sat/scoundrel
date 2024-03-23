@@ -1,45 +1,43 @@
 function create_cursor(context)
-  local card_x = context.top_row.x_points[1]
-  local card_y = context.top_row.y
-
-  local x_offset = 10
-  local y_offset = 33
-
-  local initialize_x = card_x + x_offset
-  local initialize_y = card_y + y_offset
-
   local cursor = {
-    card_x = card_x,
-    card_y = card_y,
+    card_x = function(self)
+      if self.is_top_row then
+        return context:top_cards_ordered()[self.card_index].x
+      end
+    end,
+    card_y = function(self)
+      if self.is_top_row then
+        return context.top_row.y
+      end
+    end,
+    is_top_row = true,
+    card_index = 1,
     x_offset = 10,
     y_offset = 33,
     state = 'idle',
     context = context,
     update = function(self)
+      if not context:is_complete() then return end
+
       if self.state == 'right' then
         local cards
-        if context.top_row.y == self.card_y then
+        if context.top_row.y == self:card_y() then
           cards = context:top_cards_ordered()
         else
           cards = context.bottom_cards
         end
 
-        local index
-        for i=1, #cards do
-          local card = cards[i]
-          if self.card_x == card.x then index = i end 
-        end
+        self.card_index +=1
+        if self.card_index > #cards then self.card_index = 1 end
 
-        index +=1
-        if index > #cards then index = 1 end
-
-        self.card_x = cards[index].x
         self:set_state('idle')
         gamepad.disabled = false
       end
     end,
     draw = function(self)
-      local x, y = self.card_x + self.x_offset, self.card_y + self.y_offset
+      if not context:is_complete() then return end
+
+      local x, y = self:card_x() + self.x_offset, self:card_y() + self.y_offset
       local col = 7
 
       for i=1, 4  do
