@@ -28,8 +28,10 @@ function create_dealer(deck,hero,torch,context)
         for i=1, #self.context.top_cards do
           local card = self.context.top_cards[i]
           local card_x = card.x + self.context.move_speed
-          if card_x > self.context.top_row.x_points[5 - i] then
-            card.x = self.context.top_row.x_points[5 - i]
+          local var = #self.context.top_row.x_points + 1
+
+          if card_x > self.context.top_row.x_points[var - i] then
+            card.x = self.context.top_row.x_points[var - i]
             if card.facedown then card:set_state('flip') end
           else
             card.x += self.context.move_speed
