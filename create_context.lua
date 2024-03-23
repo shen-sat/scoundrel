@@ -38,14 +38,6 @@ function create_context(x,y,move_speed)
       return ordered_cards
     end,
     bottom_cards = {},
-    update = function(self)
-      if self:is_complete() then 
-        self:set_state('idle')
-        self.gamepad.disabled = false
-      end
-      
-      if self.state == 'arrange' then self:arrange() end
-    end,
     is_full = function(self)
       return #self.top_cards > 3
     end,

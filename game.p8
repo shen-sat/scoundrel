@@ -80,7 +80,6 @@ end
 function game_update()
   gamepad_debug = 'disabled'
   gamepad:update()
-  context:update()
   dealer:update()
   for card in all(all_cards) do
     card:update()
