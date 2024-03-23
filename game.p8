@@ -25,6 +25,7 @@ function _draw()
   for card in all(all_cards) do
     card:draw()
   end
+  cursor:draw()
 end
 
 function start_game()
@@ -34,6 +35,7 @@ function start_game()
   #include create_context.lua
   #include create_gamepad.lua
   #include create_dealer.lua
+  #include create_cursor.lua
   #include shared.lua
   
   first_card_x = 14
@@ -66,6 +68,8 @@ function start_game()
   gamepad = create_gamepad(context, dealer)
   set_gamepad(context,gamepad)
   set_gamepad(dealer,gamepad)
+
+  cursor = create_cursor(context)
   
   current_time = 0
   game.update = game_update
