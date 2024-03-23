@@ -3,7 +3,7 @@ function create_context(x,y,move_speed)
     move_speed = move_speed,
     state = 'idle',
     top_row = {
-      x_points = { x + (92 - x),x + (66 - x),x + (40 - x),x },
+      x_points = { x, x + (40 - x), x + (66 - x), x + (92 - x) },
       y = y
     },
     bottom_row = {
@@ -45,7 +45,7 @@ function create_context(x,y,move_speed)
       for i=1, #self.top_cards do
         local card = self.top_cards[i]
 
-        if not (card.x == self.top_row.x_points[i]) then result = false end
+        if not (card.x == self.top_row.x_points[5 - i]) then result = false end
         if card.facedown then result = false end
       end
 

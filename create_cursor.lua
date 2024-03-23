@@ -1,5 +1,5 @@
 function create_cursor(context)
-  local card_x = context.top_row.x_points[4]
+  local card_x = context.top_row.x_points[1]
   local card_y = context.top_row.y
 
   local x_offset = 10
