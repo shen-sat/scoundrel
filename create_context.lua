@@ -27,6 +27,16 @@ function create_context(x,y,move_speed)
       return slot
     end,
     top_cards = {},
+    top_cards_ordered = function(self)
+      local ordered_cards = {}
+      local x = #self.top_cards + 1
+      
+      for i=1, #self.top_cards do
+        add(ordered_cards, self.top_cards[x - i])
+      end
+
+      return ordered_cards
+    end,
     bottom_cards = {},
     update = function(self)
       if self:is_complete() then 

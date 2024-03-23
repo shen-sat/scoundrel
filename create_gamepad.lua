@@ -12,6 +12,7 @@ function create_gamepad(context,dealer)
       if self.disabled then return end
 
       if btnp(1) then
+        if not context:is_complete() then return end
         cursor:set_state('right')
         self.disabled = true
       elseif btnp(4) then

@@ -17,23 +17,23 @@ function create_cursor(context)
     context = context,
     update = function(self)
       if self.state == 'right' then
-        local x_points
+        local cards
         if context.top_row.y == self.card_y then
-          x_points = context.top_row.x_points
+          cards = context:top_cards_ordered()
         else
-          x_points = context.bottom_row.x_points
+          cards = context.bottom_cards
         end
 
         local index
-        for i=1, #x_points do
-          local x_point = x_points[i]
-          if self.card_x == x_point then index = i end 
+        for i=1, #cards do
+          local card = cards[i]
+          if self.card_x == card.x then index = i end 
         end
 
         index +=1
-        if index > #x_points then index = 1 end
+        if index > #cards then index = 1 end
 
-        self.card_x = x_points[index]
+        self.card_x = cards[index].x
         self:set_state('idle')
         gamepad.disabled = false
       end
