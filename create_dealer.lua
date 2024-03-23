@@ -18,10 +18,6 @@ function create_dealer(deck,hero,torch,context)
             dealt_card.y = self.context.top_row.y
             del(self.deck, dealt_card)
             add(self.context.top_cards, dealt_card)
-            if self.context:is_full() then 
-              self:set_state('idle')
-              self.gamepad.disabled = false
-            end
           end
         end
         -- arrange cards already present in context
@@ -36,6 +32,11 @@ function create_dealer(deck,hero,torch,context)
           else
             card.x += self.context.move_speed
           end
+        end
+
+        if self.context:is_complete() then 
+          self:set_state('idle')
+          self.gamepad.disabled = false
         end
   		elseif self.state == 'deal_hero' then
         local card = self.hero

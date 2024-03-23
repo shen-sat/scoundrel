@@ -46,8 +46,9 @@ function create_context(x,y,move_speed)
       -- check if top_cards are all in position
       for i=1, #self.top_cards do
         local card = self.top_cards[i]
+        local var = #self.top_row.x_points + 1
 
-        if not (card.x == self.top_row.x_points[5 - i]) then result = false end
+        if not (card.x == self.top_row.x_points[var - i]) then result = false end
         if card.facedown then result = false end
       end
 
