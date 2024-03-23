@@ -21,7 +21,8 @@ function _draw()
   -- bg
   rectfill(0,0,127,127,1)
   -- other objects
-  print(gamepad_debug,90,90,7)
+  -- print(debugger,10,10,7)
+  print(#context.bottom_cards,50,50,7)
   for card in all(all_cards) do
     card:draw()
   end
@@ -70,6 +71,7 @@ function start_game()
   set_gamepad(dealer,gamepad)
 
   cursor = create_cursor(context)
+  set_gamepad(cursor, gamepad)
   
   current_time = 0
   game.update = game_update
@@ -83,6 +85,7 @@ function game_update()
   for card in all(all_cards) do
     card:update()
   end
+  cursor:update()
   current_time += 1
 end
 
