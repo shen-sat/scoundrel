@@ -1,16 +1,27 @@
 function create_cursor(context)
-  -- cursor x, y = card_x + 10, card_y + 33
+  local card_x = context.top_row.x_points[4]
+  local card_y = context.top_row.y
+
+  local x_offset = 10
+  local y_offset = 33
+
+  local initialize_x = card_x + x_offset
+  local initialize_y = card_y + y_offset
+
   local cursor = {
+    x = initialize_x,
+    y = initialize_y,
+    x_offset = x_offset,
+    y_offset = y_offset,
     draw = function(self)
-      local card_x = 14
-      local card_y = 34
-      local x, y = card_x + 10, card_y + 33
+      local x, y = self.x, self.y
       local col = 7
 
-      line(x,y,x+1,y,col)
-      line(x - 1,y+1,x+2,y+1,col)
-      line(x - 2,y+2,x+3,y+2,col)
-      line(x - 3,y+3,x+4,y+3,col)
+      for i=1, 4  do
+        local index_minus_one = i - 1
+
+        line(x - index_minus_one,y+index_minus_one,x+i,y+index_minus_one,col)  
+      end
     end
   }
 
