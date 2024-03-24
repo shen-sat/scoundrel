@@ -3,11 +3,15 @@ function create_cursor(context)
     card_x = function(self)
       if self.is_top_row then
         return context:top_cards_ordered()[self.card_index].x
+      else
+        return context.bottom_cards[self.card_index].x
       end
     end,
     card_y = function(self)
       if self.is_top_row then
         return context.top_row.y
+      else
+        return context.bottom_row.y
       end
     end,
     is_top_row = true,
@@ -22,11 +26,21 @@ function create_cursor(context)
       local cards = context.top_row.y == self:card_y() and context:top_cards_ordered() or context.bottom_cards
 
       if self.state == 'right' then
-        self.card_index += 1
-        if self.card_index > #cards then self.card_index = 1 end
+        local new_index = self.card_index + 1
+        if new_index <= #cards then self.card_index += 1 end
       elseif self.state == 'left' then
-        self.card_index -= 1
-        if self.card_index < 1 then self.card_index = #cards end
+        local new_index = self.card_index - 1
+        if new_index > 0 then self.card_index -= 1 end
+      elseif self.state == 'up' then
+        if (not self.is_top_row) and #context.top_cards > 0 then
+          self.is_top_row = true
+          self.card_index = 1
+        end
+      elseif self.state == 'down' then
+        if self.is_top_row and #context.bottom_cards > 0 then
+          self.is_top_row = false
+          self.card_index = 1
+        end
       end
 
       self:set_state('idle')

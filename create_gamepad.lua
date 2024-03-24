@@ -21,14 +21,27 @@ function create_gamepad(context,dealer)
         
         cursor:set_state('right')
         self.disabled = true
+      elseif btnp(2) then
+        if not context:is_complete() then return end
+        
+        cursor:set_state('up')
+        self.disabled = true
+      elseif btnp(3) then
+        if not context:is_complete() then return end
+        
+        cursor:set_state('down')
+        self.disabled = true
       elseif btnp(4) then
         dealer:set_state('deal_deck')
         self.disabled = true
       elseif btnp(5) then
-        dealer:set_state('deal_hero')
-        self.disabled = true
-        -- dealer:set_state('deal_torch')
-        -- self.disabled = true
+        if #context.bottom_cards < 1 then
+          dealer:set_state('deal_hero')
+          self.disabled = true
+        else
+          dealer:set_state('deal_torch')
+          self.disabled = true
+        end
       end
   	end
   }
