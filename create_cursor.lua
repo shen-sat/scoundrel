@@ -19,20 +19,18 @@ function create_cursor(context)
     update = function(self)
       if not context:is_complete() then return end
 
+      local cards = context.top_row.y == self:card_y() and context:top_cards_ordered() or context.bottom_cards
+
       if self.state == 'right' then
-        local cards
-        if context.top_row.y == self:card_y() then
-          cards = context:top_cards_ordered()
-        else
-          cards = context.bottom_cards
-        end
-
-        self.card_index +=1
+        self.card_index += 1
         if self.card_index > #cards then self.card_index = 1 end
-
-        self:set_state('idle')
-        gamepad.disabled = false
+      elseif self.state == 'left' then
+        self.card_index -= 1
+        if self.card_index < 1 then self.card_index = #cards end
       end
+
+      self:set_state('idle')
+      gamepad.disabled = false
     end,
     draw = function(self)
       if not context:is_complete() then return end
