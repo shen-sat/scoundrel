@@ -2,12 +2,14 @@ card_animations = function(parent)
   local parent_x = parent.x
   local parent_y = parent.y
   local parent_facedown = parent.facedown
+  local parent_value = parent.value
   local anims = {
     idle = {
       frame_1 = function()
+        -- card
         x1 = parent_x + 21
         y1 = parent_y + 31
-
+        
         rectfill(parent_x,parent_y,x1,y1,7)
         pset(parent_x,parent_y,1)
         pset(parent_x,y1,1)
@@ -16,6 +18,23 @@ card_animations = function(parent)
 
         if parent_facedown then
           rectfill(parent_x + 2, parent_y + 2, x1 - 2, y1 - 2, 1)
+        end
+        -- value
+        if parent_value and not parent_facedown then
+          if parent_value < 10 then
+            print(parent.value, x1 - 5, parent_y + 3, 1)
+          elseif parent_value == 20 then
+            print(parent.value, x1 - 9, parent_y + 3, 1)
+          else
+            local temp_value = parent_value - 10
+            if temp_value == 1 then
+              line(x1 - 3,parent_y + 3, x1 - 3,parent_y + 7,1)
+              line(x1 - 6,parent_y + 3, x1 - 6,parent_y + 7,1)
+            else
+              print(temp_value, x1 - 5, parent_y + 3, 1)
+              line(x1 - 7,parent_y + 3, x1 - 7,parent_y + 7,1)
+            end         
+          end
         end
       end,
       frames = function(parent)
