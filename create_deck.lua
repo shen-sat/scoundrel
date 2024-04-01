@@ -1,11 +1,11 @@
 function create_deck(x,y)
-  local suits = {'spade','club','diamond','heart'}
+  local suit_symbols = {'spade','club','diamond','heart'}
   
   local unshuffled_cards = {}
 
   for i=2, 14  do
-  	for suit in all(suits) do
-  		local card = create_card(x,y,suit,i)
+  	for symbol in all(suit_symbols) do
+  		local card = create_card(x,y,symbol,i)
   		add(unshuffled_cards, card)
   	end
   end

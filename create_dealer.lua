@@ -50,7 +50,7 @@ function create_dealer(deck,hero,torch,context)
   	end,
     deal_card = function(self, card, target_y)
       local card = card
-      assert(not is_in_table(self.context.bottom_cards, card), "card:"..card.suit.." is already in context! " )
+      assert(not is_in_table(self.context.bottom_cards, card), "card:"..card.suit.type.." is already in context! " )
 
       local target_y = target_y
       if card.y - move_speed > target_y then

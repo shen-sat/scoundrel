@@ -38,6 +38,8 @@ function start_game()
   #include create_dealer.lua
   #include create_cursor.lua
   #include shared.lua
+  #include suit/create_suit.lua
+  #include suit/suit_animations.lua
   
   first_card_x = 14
   first_card_y = 34
@@ -61,7 +63,7 @@ function start_game()
 
   torch_x = context:torch_slot().x
   torch_y = 129
-  torch = create_card(torch_x,torch_y,'torch')
+  torch = create_card(torch_x,torch_y,'torch',0)
   add(all_cards, torch)
 
   dealer = create_dealer(deck,hero,torch,context)
