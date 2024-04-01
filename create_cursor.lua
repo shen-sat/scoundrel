@@ -43,6 +43,8 @@ function create_cursor(context)
         end
       end
 
+      context:select_card(self.card_index, self.is_top_row)
+
       self:set_state('idle')
       gamepad.disabled = false
     end,

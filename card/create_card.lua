@@ -8,6 +8,7 @@ function create_card(x,y,suit,value)
     facedown = true,
     frame_index = 1,
     state_change_time = 0,
+    selected = false,
     update = function(self)
       local frame_index = get_frame_index(self,current_time)
       

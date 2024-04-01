@@ -56,6 +56,31 @@ function create_context(x,y,move_speed)
     end,
     set_state = function(self,new_state)
       self.state = new_state
+    end,
+    all_cards = function(self)
+      local cards = {}
+
+      for card in all(self.top_cards) do
+        add(cards, card)
+      end
+      for card in all(self.bottom_cards) do
+        add(cards, card)
+      end
+
+      return cards
+    end,
+    select_card = function(self, card_index, top_row_flag)
+      local card = top_row_flag and self:top_cards_ordered()[card_index] or self.bottom_cards[card_index]
+
+      if card.selected then return end
+
+      for c in all(self:all_cards()) do
+        if c == card then 
+          c.selected = true
+        else
+          c.selected = false
+        end 
+      end
     end
   }
 
