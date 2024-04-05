@@ -39,3 +39,10 @@ function is_in_table(table, item)
 
   return false
 end
+
+function draw_sspr(x, y, x1, y1, pos_x, pos_y, flip)
+  local width = (x1 - x) + 1
+  local height = (y1 - y) + 1
+
+  sspr(x, y, width, height, pos_x, pos_y)
+end
