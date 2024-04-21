@@ -44,5 +44,14 @@ function draw_sspr(x, y, x1, y1, pos_x, pos_y, flip)
   local width = (x1 - x) + 1
   local height = (y1 - y) + 1
 
-  sspr(x, y, width, height, pos_x, pos_y)
+  sspr(x, y, width, height, pos_x, pos_y, width, height, flip)
+end
+
+function draw_whole_from_half_sspr(x, y, x1, y1, pos_x, pos_y)
+  draw_sspr(x, y, x1, y1, pos_x, pos_y)
+
+  local width_of_first_half = (x1 - x) + 1
+  local new_pos_x = pos_x + width_of_first_half
+
+  draw_sspr(x, y, x1, y1, new_pos_x, pos_y, true)
 end
