@@ -3,24 +3,26 @@ suit_animations = function(parent)
   local parent_y = parent:y() 
   local anims = {
     idle = {
-      frame_1 = function()
-        pset(parent_x,parent_y,14)
-      end,
       frames = function(self)
-        return { self.frame_1 }
+        return { 
+          function()
+            pset(parent_x,parent_y,14)
+          end
+        }
       end,
       speed = 10,
       loop = true,
     },
     selected = {
-      frame_1 = function()
-        pset(parent_x,parent_y,11)
-      end,
-      frame_2 = function()
-        pset(parent_x,parent_y,12)
-      end,
       frames = function(self)
-        return { self.frame_1, self.frame_2 }
+        return {
+          function()
+            pset(parent_x,parent_y,11)
+          end,
+          function()
+            pset(parent_x,parent_y,12)
+          end,
+        }
       end,
       speed = 5,
       loop = true,
